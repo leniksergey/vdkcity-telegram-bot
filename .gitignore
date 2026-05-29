@@ -1,0 +1,34 @@
+# Python (кэш компиляции кода)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment (папка виртуального окружения)
+venv/
+env/
+.venv/
+
+# IDE (настройки редакторов кода PyCharm и VS Code)
+.idea/
+.vscode/
+
+# Secrets (секретные ключи и токены бота)
+.env
+
+# Logs (журналы ошибок)
+*.log
+
+# OS (системный мусор Windows и macOS)
+.DS_Store
+Thumbs.db
+
+# Databases (файлы локальной базы данных)
+*.db
+*.sqlite
+*.sqlite3
+bookings.db
+
+# Project specific (картинки объектов и тесты)
+*.jpg
+*.png

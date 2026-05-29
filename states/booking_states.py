@@ -1,0 +1,3 @@
+from telegram.ext import ConversationHandler
+
+CHOOSING_CHECKIN, CHOOSING_CHECKOUT, CHOOSING_GUESTS, ASKING_NAME, ASKING_PHONE, CONFIRMATION = range(6)
