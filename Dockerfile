@@ -5,7 +5,7 @@ FROM python:3.12-slim
 WORKDIR /app
 
 # Запрещаем Python кешировать байт-код (.pyc) и буферизировать логи
-ENV PYTHONTONTWRITEBYTECODE=1
+ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 # Сначала копируем только файл зависимостей (для эффективного кэширования слоев Docker)

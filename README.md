@@ -19,11 +19,12 @@
 
 ## 🛠 Технологии и стек
 
-- **Язык программирования:** Python 3.14
+- **Язык программирования:** Python 3.12+
 - **Фреймворк:** `python-telegram-bot` v21.10
 - **ORM:** Peewee
 - **База данных:** SQLite (локальный файл `bookings.db`)
 - **Конфигурация:** `python-dotenv`
+- **Деплой:** Docker
 
 ---
 
@@ -74,3 +75,15 @@ python main.py
 
 - `TOKEN` — токен бота, который выдаёт [@BotFather](https://t.me/BotFather);
 - `ADMIN_ID` — ваш Telegram ID (получить можно у бота @userinfobot).
+
+---
+
+## 🐳 Запуск в Docker
+
+```bash
+docker build -t vdkcity-bot .
+docker run -d --env-file .env vdkcity-bot
+```
+
+Токен и ID администратора передаются через переменные окружения, в образ они не попадают.
+Файл `bookings.db` создаётся внутри контейнера, поэтому при его пересоздании история заявок теряется.
