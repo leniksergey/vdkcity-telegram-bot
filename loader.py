@@ -1,4 +1,18 @@
-from telegram.ext import Application
-from config_data import config
+import config_data.config as config
+from telegram.ext import ApplicationBuilder
+from telegram.request import HTTPXRequest
 
-application = Application.builder().token(config.TOKEN).build()
+# Увеличиваем таймауты для работы в России
+request = HTTPXRequest(
+    connect_timeout=30.0,
+    read_timeout=30.0,
+    write_timeout=30.0,
+    # proxy_url="socks5://localhost:1080"  # Раскомментируйте, если используете прокси
+)
+
+application = (
+    ApplicationBuilder()
+    .token(config.TOKEN)
+    .base_url("https://tapi.ctv.im/bot") # Это зеркало API Telegram
+    .build()
+)
