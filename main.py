@@ -1,13 +1,19 @@
-# main.py
 import logging
 from telegram.ext import CommandHandler, MessageHandler, CallbackQueryHandler, filters
 from loader import application
 from config_data import config
-from handlers import start, rules, contacts, button_callback, booking_conv
+
+# Подключаем обработчики через их точное расположение
+from handlers.default_handlers.start import start
+from handlers.default_handlers.rules import rules
+from handlers.default_handlers.contacts import contacts
+from handlers.default_handlers.callback_handler import button_callback
 from handlers.default_handlers.commands import help_command, history_command
+from handlers.default_handlers.admin import show_bookings, stats, find_booking
+from handlers.booking_handlers.booking_handlers import booking_conv
+
 from keyboards.reply import district_keyboard
 from utils.database import init_db
-from handlers.default_handlers.admin import show_bookings, stats, find_booking
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",

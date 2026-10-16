@@ -39,7 +39,6 @@ APARTMENTS = {
 
 ⏰ Заселение с 15:00, выезд до 12:00""",
     },
-
     "center_historical": {
         "name": "3-х уровневая в центре",
         "district": "center",
@@ -85,7 +84,6 @@ APARTMENTS = {
 🚭 Курение запрещено
 🐾 Без животных""",
     },
-
     "sea_eger1": {
         "name": "№1 Эгершельд",
         "district": "sea",
@@ -124,7 +122,6 @@ APARTMENTS = {
 🚭 Курение запрещено
 🐾 Без животных""",
     },
-
     "sea_eger2": {
         "name": "№2 Эгершельд",
         "district": "sea",
@@ -162,7 +159,6 @@ APARTMENTS = {
 🚭 Курение запрещено
 🐾 Без животных""",
     },
-
     "sea_eger3": {
         "name": "№3 Эгершельд",
         "district": "sea",
@@ -195,7 +191,6 @@ APARTMENTS = {
 🚭 Курение запрещено
 🐾 Без животных""",
     },
-
     "sea_eger4": {
         "name": "№4 Эгершельд",
         "district": "sea",
@@ -232,7 +227,6 @@ APARTMENTS = {
 🚭 Курение запрещено
 🐾 Без животных""",
     },
-
     "sea_4rooms": {
         "name": "4-х комнатная Эгершельд",
         "district": "sea",
@@ -241,6 +235,8 @@ APARTMENTS = {
             "https://static.tildacdn.com/stor6633-3833-4832-b037-343235326339/73135283.jpg",
             "https://static.tildacdn.com/stor6366-6663-4138-a239-386362636231/76230448.jpg",
             "https://static.tildacdn.com/stor3062-6164-4036-b037-393539346233/26482768.jpg",
+            "https://static.tildacdn.com/stor6633-3437-4438-b538-366531666635/f329901235f3ca2c6eaac5fab33e30e6.jpg",
+            "https://static.tildacdn.com/stor6466-6630-4331-b338-613763613666/48dce7d55bd73a1504175a6259e83bf5.jpg",
         ],
         "caption": """🌊 *4-х комнатная квартира в районе Эгершельда*
 
@@ -270,15 +266,16 @@ APARTMENTS = {
 🚭 Курение запрещено
 🐾 Без животных""",
     },
-
     "sea_comfy1": {
         "name": "Уютная студия №1",
         "district": "sea",
         "photos": [
             "https://static.tildacdn.com/tild3939-6339-4135-b132-663463326634/noroot.png",
-            "https://static.tildacdn.com/tild3731-3236-4864-a464-633732393038/IMG-20230910-WA0014.jpg",
-            "https://static.tildacdn.com/tild3335-3732-4238-a639-663466333037/IMG-20230910-WA0011.jpg",
-            "https://static.tildacdn.com/tild3438-3562-4961-b262-383032393936/IMG-20230910-WA0010.jpg",
+            "https://static.tildacdn.com/stor6162-3964-4138-b934-646339303363/0296ab0dc651f3690e4353729b7cea7b.jpg",
+            "https://static.tildacdn.com/stor3364-3335-4061-b532-613132663466/fa3d4c557a5e629ca18ed59286fabc46.jpg",
+            "https://static.tildacdn.com/stor6633-3437-4438-b538-366531666635/f329901235f3ca2c6eaac5fab33e30e6.jpg",
+            "https://static.tildacdn.com/tild3032-3335-4466-b033-613763343162/64f5f1b0d988b.jpg",
+            "https://static.tildacdn.com/stor3162-6462-4263-a565-616138626631/5b4c84bee159fb2090adb81399734920.jpg",
         ],
         "caption": """🌊 *Уютная студия №1*
 
@@ -310,15 +307,17 @@ APARTMENTS = {
 🚭 Курение запрещено
 🐾 Без животных""",
     },
-
     "sea_comfy2": {
         "name": "Уютная студия №2",
         "district": "sea",
         "photos": [
             "https://static.tildacdn.com/tild3866-3134-4638-a331-393539306637/noroot.png",
-            "https://static.tildacdn.com/tild6438-6332-4666-a461-616531613463/64f5f1b13501e.jpg",
-            "https://static.tildacdn.com/tild6332-3536-4435-b335-326161623038/64f5f1b248cba.jpg",
-            "https://static.tildacdn.com/tild6430-6335-4739-b166-633961373162/64f5f1b08f602.jpg",
+            "https://static.tildacdn.com/stor6334-3662-4330-b633-313462363132/3bd8df3f72b479dbf638048ab7946433.jpg",
+            "https://static.tildacdn.com/stor3130-6339-4362-b631-666237363462/92b98b20d8b6e1102af97f9f6508ae39.jpg",
+            "https://static.tildacdn.com/stor3338-6537-4664-a133-333735323330/2179ecf3c4263458005f824a2b799c88.jpg",
+            "https://static.tildacdn.com/stor6662-3863-4562-b138-646538613835/d9ce588cdcfc45e2d0b7c61832809dd8.jpg",
+            "https://static.tildacdn.com/stor6464-6435-4365-b934-623466643264/1f09b1b7cd34ee3be947d2933de1bed3.jpg",
+            "https://static.tildacdn.com/stor6461-6332-4531-a533-376236646134/f552dc363edb0c0d8c9924dd8d6a3997.jpg",
         ],
         "caption": """🌊 *Уютная студия №2*
 
@@ -348,15 +347,16 @@ APARTMENTS = {
 🚭 Курение запрещено
 🐾 Без животных""",
     },
-
     "sea_comfy3": {
         "name": "Уютная студия №3",
         "district": "sea",
         "photos": [
             "https://static.tildacdn.com/tild6230-3432-4039-b961-333036303533/noroot.png",
-            "https://static.tildacdn.com/tild3131-6264-4161-a237-346235313037/IMG-20230910-WA0008.jpg",
-            "https://static.tildacdn.com/tild6333-3430-4864-a636-636535376465/IMG-20230910-WA0011.jpg",
-            "https://static.tildacdn.com/tild3938-6365-4238-b763-363866386561/IMG-20230910-WA0010.jpg",
+            "https://static.tildacdn.com/stor3464-6538-4662-b461-363438623939/8a35e6a9534354511e4afa058849e86b.jpg",
+            "https://static.tildacdn.com/stor3065-6638-4032-a336-663162333336/ddaf3a4cab9aab0f055f042c38459eca.jpg",
+            "https://static.tildacdn.com/stor6665-6466-4166-a261-666538313239/c2b09ac396e4491bd3110cf535cda018.jpg",
+            "https://static.tildacdn.com/stor3066-3832-4664-b136-363161383731/2a737d0953673a1c5f89571dabbcb74e.jpg",
+            "https://static.tildacdn.com/stor6437-6239-4033-a363-623063336637/275eab6240ffdc8d293fa523d68afcdd.jpg",
         ],
         "caption": """🌊 *Уютная студия №3*
 
@@ -385,13 +385,17 @@ APARTMENTS = {
 🚭 Курение запрещено
 🐾 Без животных""",
     },
-
     "sea_comfy4": {
         "name": "Уютная студия №4",
         "district": "sea",
         "photos": [
             "https://static.tildacdn.com/tild3032-3837-4366-b465-646233346535/noroot.png",
-            "https://static.tildacdn.com/tild6131-3861-4238-b236-643966383331/21a3cd33-3f6c-4bb8-8.png",
+            "https://static.tildacdn.com/stor3430-6431-4637-b837-333466376437/89264d889e9168aada4c206b4b4bdc23.jpg",
+            "https://static.tildacdn.com/stor3835-3734-4234-a332-303861306631/9c7f7c6d54fa17f4ea993d1fba024cdf.jpg",
+            "https://static.tildacdn.com/stor3833-3862-4432-b836-323734396161/734d8da7a5ea47611b3b34c5655bedb3.jpg",
+            "https://static.tildacdn.com/stor3131-3634-4736-a437-323435353964/75904824721d0f41057caed6730cf017.jpg",
+            "https://static.tildacdn.com/stor3131-6165-4437-b232-313332303436/a08a6924062b085e1567d503bf6b47e6.jpg",
+            "https://static.tildacdn.com/stor6461-6332-4531-a533-376236646134/f552dc363edb0c0d8c9924dd8d6a3997.jpg",
         ],
         "caption": """🌊 *Уютная студия №4*
 
@@ -421,15 +425,20 @@ APARTMENTS = {
 🚭 Курение запрещено
 🐾 Без животных""",
     },
-
     "sleep_2rooms": {
         "name": "2-х комнатная квартира",
         "district": "sleep",
         "photos": [
-            "https://static.tildacdn.com/tild6531-3564-4630-a263-343530333431/noroot.png",
-            "https://static.tildacdn.com/tild3265-3138-4263-b032-303730363662/1741598107984.jpg",
-            "https://static.tildacdn.com/tild6335-3939-4633-a337-373432653733/1741598108003.jpg",
-            "https://static.tildacdn.com/tild6461-6633-4564-b865-626233353330/1741598108023.jpg",
+            "https://static.tildacdn.com/stor3536-3931-4462-a638-386361333038/4e1a4e2f62487d827814c25bde6e4208.jpg",
+            "https://static.tildacdn.com/stor3366-6538-4266-a435-303335623035/6867784e30187aae91f149cf07f6894e.jpg",
+            "https://static.tildacdn.com/stor6634-3933-4363-a135-663331393836/0ec2eb784fabf3c0faccf5a3273bf61d.jpg",
+            "https://static.tildacdn.com/stor6532-3739-4863-b033-333935363034/8198b9cd686f0e714a20637c32454115.jpg",
+            "https://static.tildacdn.com/stor6533-3535-4364-b661-353633623466/197e368e681499ea3d34cca0296a705c.jpg",
+            "https://static.tildacdn.com/stor3832-3462-4231-b562-646138363431/1f324bfaaca2493255e866179f4bf7fb.jpg",
+            "https://static.tildacdn.com/stor6463-3637-4433-a538-376436646239/d48d70677628290f2bbf5e8a32e0aae3.jpg",
+            "https://static.tildacdn.com/stor3130-3864-4461-b236-643231656563/11d41157cf608a45551622f1b6264631.jpg",
+            "https://static.tildacdn.com/stor6463-3637-4433-a538-376436646239/d48d70677628290f2bbf5e8a32e0aae3.jpg",
+            "https://static.tildacdn.com/stor3536-3866-4664-a661-626239306131/1fe3ec6daf42239fe05dffb2588cd344.jpg",
         ],
         "caption": """🏙 *2-х комнатная квартира*
 
