@@ -1,4 +1,4 @@
-from main import TOKEN_RE
+from utils.logging_filters import TOKEN_RE
 
 
 def test_mask_token_in_url():

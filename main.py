@@ -1,38 +1,18 @@
 import asyncio
 import logging
 import os
-import re
 import time
 import warnings
 
 from telegram.warnings import PTBUserWarning
+
+from utils.logging_filters import MaskTokenFilter
 
 # Настройка логирования ДО импортов проекта
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     level=logging.INFO,
 )
-
-# Маскировка токена
-TOKEN_RE = re.compile(r"bot\d+:[A-Za-z0-9_-]+")
-
-
-class MaskTokenFilter(logging.Filter):
-    def filter(self, record: logging.LogRecord) -> bool:
-        if isinstance(record.msg, str):
-            record.msg = TOKEN_RE.sub("bot<TOKEN>", record.msg)
-        if record.args:
-            if isinstance(record.args, tuple):
-                record.args = tuple(
-                    TOKEN_RE.sub("bot<TOKEN>", a) if isinstance(a, str) else a
-                    for a in record.args
-                )
-            elif isinstance(record.args, dict):
-                record.args = {
-                    k: (TOKEN_RE.sub("bot<TOKEN>", v) if isinstance(v, str) else v)
-                    for k, v in record.args.items()
-                }
-        return True
 
 
 _root = logging.getLogger()
