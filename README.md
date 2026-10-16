@@ -47,24 +47,30 @@
 
 ```bash
 # 1. Клонируем репозиторий
-git clone https://gitlab.com/ваш-логин/Vdk_city_TG_bot.git
-cd Vdk_city_TG_bot
+git clone https://github.com/leniksergey/vdkcity-telegram-bot.git
+cd vdkcity-telegram-bot
 
 # 2. Создаём и активируем виртуальное окружение
-python -m venv venv
+python -m venv .venv
 
 # Windows:
-venv\Scripts\activate
+.venv\Scripts\activate
 
 # Linux / macOS:
-# source venv/bin/activate
+# source .venv/bin/activate
 
 # 3. Устанавливаем зависимости
 pip install -r requirements.txt
 
-# 4. Создаём файл .env и добавляем в него:
-# TOKEN=ваш_токен_от_BotFather
-# ADMIN_ID=ваш_telegram_id
+# 4. Копируем .env.example в .env и вписываем свои значения
+copy .env.example .env      # Windows
+# cp .env.example .env      # Linux / macOS
 
 # 5. Запускаем бота
 python main.py
+```
+
+В файле `.env` нужно указать:
+
+- `TOKEN` — токен бота, который выдаёт [@BotFather](https://t.me/BotFather);
+- `ADMIN_ID` — ваш Telegram ID (получить можно у бота @userinfobot).
