@@ -9,3 +9,8 @@ __pycache__/
 venv/
 bookings.db
 .env
+*.log
+.DS_Store
+Thumbs.db
+*.sqlite
+*.sqlite3

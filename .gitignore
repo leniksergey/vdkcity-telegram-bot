@@ -30,5 +30,14 @@ Thumbs.db
 bookings.db
 
 # Project specific (картинки объектов и тесты)
+# Картинки квартир отдаются с Tilda CDN, локально не нужны.
+# Единственная локальная картинка — static/ETVmc.jpg — исключена из игнора.
 *.jpg
 *.png
+!static/ETVmc.jpg
+
+# Данные приложения
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm

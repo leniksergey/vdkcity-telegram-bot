@@ -1,11 +1,15 @@
+import logging
 import os
-from peewee import (
-    SqliteDatabase, Model, AutoField, IntegerField, CharField,
-    TextField, DateTimeField, DoesNotExist, fn
-)
 from datetime import datetime
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "..", "bookings.db")
+from peewee import (
+    SqliteDatabase, Model, AutoField, IntegerField, CharField,
+    TextField, DateTimeField, DoesNotExist, fn,
+)
+
+logger = logging.getLogger(__name__)
+
+DB_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "bookings.db")
 db = SqliteDatabase(DB_PATH)
 
 
@@ -41,9 +45,13 @@ class Booking(Model):
 
 
 def init_db():
-    db.connect()
-    db.create_tables([Booking, UserQuery], safe=True)
-    print("✅ База данных инициализирована (Peewee)")
+    try:
+        db.connect()
+        db.create_tables([Booking, UserQuery], safe=True)
+        logger.info("✅ База данных инициализирована (Peewee)")
+    except Exception:
+        logger.exception("❌ Не удалось инициализировать БД")
+        raise
 
 
 def add_booking(booking_data):

@@ -1,19 +1,29 @@
 import logging
 from datetime import datetime, timedelta, date
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import ContextTypes, ConversationHandler, CallbackQueryHandler, MessageHandler, filters, \
-    CommandHandler
 
-from utils.database import add_booking
-from utils.apartments_data import APARTMENTS
-from config_data.config import ADMIN_ID
-from utils.calendar import get_calendar
-from states.booking_states import (
-    CHOOSING_CHECKIN, CHOOSING_CHECKOUT, CHOOSING_GUESTS,
-    ASKING_NAME, ASKING_PHONE, CONFIRMATION
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import (
+    ContextTypes, ConversationHandler, CallbackQueryHandler,
+    MessageHandler, filters, CommandHandler,
 )
 
+from config_data.config import ADMIN_ID
+from states.booking_states import (
+    CHOOSING_CHECKIN, CHOOSING_CHECKOUT, CHOOSING_GUESTS,
+    ASKING_NAME, ASKING_PHONE, CONFIRMATION,
+)
+from utils.apartments_data import APARTMENTS
+from utils.calendar import get_calendar
+from utils.database import add_booking
+
 logger = logging.getLogger(__name__)
+
+
+def _calc_nights(data: dict) -> int:
+    """Считает число ночей по датам в user_data. 0, если дат нет."""
+    if 'checkin_obj' in data and 'checkout_obj' in data:
+        return (data['checkout_obj'] - data['checkin_obj']).days
+    return 0
 
 
 async def start_booking(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -34,7 +44,7 @@ async def start_booking(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await query.message.reply_text(
         f"🏠 {apt['name']}\n\n📅 Выберите **дату заезда**:",
         parse_mode="Markdown",
-        reply_markup=get_calendar(today.year, today.month, min_date=today)
+        reply_markup=get_calendar(today.year, today.month, min_date=today),
     )
     return CHOOSING_CHECKIN
 
@@ -88,7 +98,7 @@ async def select_checkin(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await query.edit_message_text(
         f"✅ Дата заезда: {context.user_data['checkin']}\n\n📅 Теперь выберите **дату выезда**:",
         parse_mode="Markdown",
-        reply_markup=get_calendar(checkin_date.year, checkin_date.month, min_date=next_min_date)
+        reply_markup=get_calendar(checkin_date.year, checkin_date.month, min_date=next_min_date),
     )
     return CHOOSING_CHECKOUT
 
@@ -107,6 +117,7 @@ async def select_checkout(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return CHOOSING_CHECKOUT
 
     context.user_data['checkout'] = checkout_date.strftime("%d.%m.%Y")
+    context.user_data['checkout_obj'] = checkout_date
     context.user_data['dates'] = f"{context.user_data['checkin']} — {context.user_data['checkout']}"
 
     await query.edit_message_text(
@@ -141,10 +152,7 @@ async def get_phone(update: Update, context: ContextTypes.DEFAULT_TYPE):
     data = context.user_data
     apt = APARTMENTS.get(data['apt_key'])
 
-    nights = "—"
-    if 'checkin_obj' in data and 'checkout' in data:
-        checkout_obj = datetime.strptime(data['checkout'], "%d.%m.%Y").date()
-        nights = (checkout_obj - data['checkin_obj']).days
+    nights = _calc_nights(data)
 
     text = f"""
 ✅ *Подтверждение бронирования*
@@ -158,7 +166,7 @@ async def get_phone(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("✅ Подтвердить заявку", callback_data="confirm_booking")],
-        [InlineKeyboardButton("❌ Отменить", callback_data="cancel_booking")]
+        [InlineKeyboardButton("❌ Отменить", callback_data="cancel_booking")],
     ])
 
     await update.message.reply_text(text, parse_mode="Markdown", reply_markup=keyboard)
@@ -172,25 +180,22 @@ async def confirm_booking(update: Update, context: ContextTypes.DEFAULT_TYPE):
     data = context.user_data
     apt = APARTMENTS.get(data['apt_key'])
 
-    nights = "—"
-    if 'checkin_obj' in data and 'checkout' in data:
-        checkout_obj = datetime.strptime(data['checkout'], "%d.%m.%Y").date()
-        nights = (checkout_obj - data['checkin_obj']).days
+    nights = _calc_nights(data)
 
     booking_data = {
         'apartment_name': apt['name'],
         'checkin': data.get('checkin'),
         'checkout': data.get('checkout'),
-        'nights': nights if nights != "—" else 0,
+        'nights': nights,
         'guests': int(data.get('guests')),
         'customer_name': data.get('name'),
         'customer_phone': data.get('phone'),
         'user_id': query.from_user.id,
-        'username': query.from_user.username
+        'username': query.from_user.username,
     }
 
     booking_id = add_booking(booking_data)
-    print(f"📝 Заявка #{booking_id} сохранена в БД")
+    logger.info("📝 Заявка #%s сохранена в БД", booking_id)
 
     booking_text = f"""
 🛎 **НОВАЯ ЗАЯВКА НА БРОНИРОВАНИЕ!**
@@ -207,12 +212,14 @@ async def confirm_booking(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await context.bot.send_message(
             chat_id=ADMIN_ID,
             text=booking_text,
-            parse_mode="Markdown"
+            parse_mode="Markdown",
         )
-        print(f"✅ Заявка отправлена на {ADMIN_ID}")
-    except Exception as e:
-        print(f"❌ Ошибка отправки: {e}")
-        await query.message.reply_text("⚠️ Ошибка при отправке заявки. Пожалуйста, свяжитесь с нами по телефону.")
+        logger.info("✅ Заявка отправлена на %s", ADMIN_ID)
+    except Exception:
+        logger.exception("❌ Ошибка отправки заявки админу")
+        await query.message.reply_text(
+            "⚠️ Ошибка при отправке заявки. Пожалуйста, свяжитесь с нами по телефону."
+        )
         context.user_data.clear()
         return ConversationHandler.END
 
@@ -265,5 +272,5 @@ booking_conv = ConversationHandler(
     },
     fallbacks=[CommandHandler("cancel", cancel_booking)],
     name="booking_conversation",
-    allow_reentry=True
+    allow_reentry=True,
 )
