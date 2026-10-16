@@ -1,4 +1,5 @@
 import logging
+import asyncio
 from telegram.ext import CommandHandler, MessageHandler, CallbackQueryHandler, filters
 from loader import application
 from config_data import config
@@ -60,6 +61,7 @@ def main():
 
     print("🤖 Бот VDKcity успешно запущен!")
     print("📋 Доступные команды: /start, /help, /history")
+    asyncio.set_event_loop(asyncio.new_event_loop())
     application.run_polling()
 
 
