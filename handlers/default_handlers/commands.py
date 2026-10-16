@@ -1,8 +1,8 @@
 
 from telegram import Update
 from telegram.ext import ContextTypes
+
 from utils.database import get_user_bookings, save_user_query
-from keyboards.reply import main_keyboard
 
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):

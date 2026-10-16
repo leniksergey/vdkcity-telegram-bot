@@ -1,0 +1,38 @@
+[project]
+name = "vdkcity-bot"
+version = "1.0.0"
+description = "Telegram bot for booking apartments in Vladivostok"
+requires-python = ">=3.12"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+exclude = [
+    ".venv",
+    "venv",
+    "__pycache__",
+    "data",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "W",
+    "F",
+    "I",
+    "B",
+    "UP",
+]
+ignore = [
+    "E501",
+    "B008",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"main.py" = ["E402"]
+"handlers/__init__.py" = ["F401"]
+"handlers/default_handlers/__init__.py" = ["F401"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]

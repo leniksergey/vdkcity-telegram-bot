@@ -35,9 +35,11 @@ bookings.db
 *.jpg
 *.png
 !static/ETVmc.jpg
+!docs/*.png
 
 # Данные приложения
 data/*.db
 data/*.db-journal
 data/*.db-wal
 data/*.db-shm
+

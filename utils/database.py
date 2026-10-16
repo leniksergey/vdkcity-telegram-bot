@@ -3,8 +3,15 @@ import os
 from datetime import datetime
 
 from peewee import (
-    SqliteDatabase, Model, AutoField, IntegerField, CharField,
-    TextField, DateTimeField, DoesNotExist, fn,
+    AutoField,
+    CharField,
+    DateTimeField,
+    DoesNotExist,
+    IntegerField,
+    Model,
+    SqliteDatabase,
+    TextField,
+    fn,
 )
 
 logger = logging.getLogger(__name__)

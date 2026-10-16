@@ -1,16 +1,24 @@
 import logging
-from datetime import datetime, timedelta, date
+from datetime import date, timedelta
 
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import (
-    ContextTypes, ConversationHandler, CallbackQueryHandler,
-    MessageHandler, filters, CommandHandler,
+    CallbackQueryHandler,
+    CommandHandler,
+    ContextTypes,
+    ConversationHandler,
+    MessageHandler,
+    filters,
 )
 
 from config_data.config import ADMIN_ID
 from states.booking_states import (
-    CHOOSING_CHECKIN, CHOOSING_CHECKOUT, CHOOSING_GUESTS,
-    ASKING_NAME, ASKING_PHONE, CONFIRMATION,
+    ASKING_NAME,
+    ASKING_PHONE,
+    CHOOSING_CHECKIN,
+    CHOOSING_CHECKOUT,
+    CHOOSING_GUESTS,
+    CONFIRMATION,
 )
 from utils.apartments_data import APARTMENTS
 from utils.calendar import get_calendar

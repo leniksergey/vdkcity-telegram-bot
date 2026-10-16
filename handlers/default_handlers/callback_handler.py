@@ -2,19 +2,19 @@
 import logging
 
 from telegram import (
-    Update,
-    InputMediaPhoto,
-    InlineKeyboardMarkup,
     InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    InputMediaPhoto,
     Message,
+    Update,
 )
 from telegram.ext import ContextTypes
 
 from keyboards.reply import (
     center_keyboard,
+    district_keyboard,
     sea_keyboard,
     sleep_keyboard,
-    district_keyboard,
 )
 from utils.apartments_data import APARTMENTS
 

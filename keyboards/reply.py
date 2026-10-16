@@ -1,4 +1,4 @@
-from telegram import ReplyKeyboardMarkup, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
 
 main_keyboard = ReplyKeyboardMarkup(
     [

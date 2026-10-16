@@ -1,6 +1,7 @@
 from telegram import Update
 from telegram.ext import ContextTypes
 
+
 async def rules(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = """📋 *Правила проживания*
 

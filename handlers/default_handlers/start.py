@@ -4,7 +4,7 @@ import os
 from telegram import Update
 from telegram.ext import ContextTypes
 
-from config_data.config import WEBSITE, TELEGRAM_CHANNEL
+from config_data.config import TELEGRAM_CHANNEL, WEBSITE
 from keyboards.reply import main_keyboard
 
 logger = logging.getLogger(__name__)
