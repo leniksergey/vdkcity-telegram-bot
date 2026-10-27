@@ -23,6 +23,7 @@ from states.booking_states import (
 from utils.apartments_data import APARTMENTS
 from utils.calendar import get_calendar
 from utils.database import add_booking
+from utils.validation import normalize_phone, parse_guests, validate_name
 
 logger = logging.getLogger(__name__)
 
@@ -92,14 +93,20 @@ async def calendar_navigation(update: Update, context: ContextTypes.DEFAULT_TYPE
 
 async def select_checkin(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
-    await query.answer()
-
     data = query.data
-    _, _, year, month, day = data.split("_")
-    checkin_date = date(int(year), int(month), int(day))
+    try:
+        _, _, year, month, day = data.split("_")
+        checkin_date = date(int(year), int(month), int(day))
+    except (TypeError, ValueError):
+        await query.answer("Некорректная дата. Выберите дату в календаре.", show_alert=True)
+        return CHOOSING_CHECKIN
+    if checkin_date < date.today():
+        await query.answer("Нельзя выбрать прошедшую дату.", show_alert=True)
+        return CHOOSING_CHECKIN
 
     context.user_data['checkin'] = checkin_date.strftime("%d.%m.%Y")
     context.user_data['checkin_obj'] = checkin_date
+    await query.answer()
 
     next_min_date = checkin_date + timedelta(days=1)
 
@@ -113,20 +120,23 @@ async def select_checkin(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def select_checkout(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
-    await query.answer()
-
     data = query.data
-    _, _, year, month, day = data.split("_")
-    checkout_date = date(int(year), int(month), int(day))
+    try:
+        _, _, year, month, day = data.split("_")
+        checkout_date = date(int(year), int(month), int(day))
+    except (TypeError, ValueError):
+        await query.answer("Некорректная дата. Выберите дату в календаре.", show_alert=True)
+        return CHOOSING_CHECKOUT
 
     checkin_obj = context.user_data.get('checkin_obj')
-    if checkout_date <= checkin_obj:
+    if not checkin_obj or checkout_date <= checkin_obj:
         await query.answer("Дата выезда должна быть позже даты заезда!", show_alert=True)
         return CHOOSING_CHECKOUT
 
     context.user_data['checkout'] = checkout_date.strftime("%d.%m.%Y")
     context.user_data['checkout_obj'] = checkout_date
     context.user_data['dates'] = f"{context.user_data['checkin']} — {context.user_data['checkout']}"
+    await query.answer()
 
     await query.edit_message_text(
         f"✅ Даты: {context.user_data['dates']}\n\n👥 Сколько будет гостей? (например: 2)"
@@ -135,27 +145,36 @@ async def select_checkout(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def get_guests(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    try:
-        guests = int(update.message.text.strip())
-        if guests < 1:
-            raise ValueError
-        context.user_data['guests'] = str(guests)
-    except ValueError:
-        await update.message.reply_text("❌ Пожалуйста, введите число (например: 2)")
+    guests = parse_guests(update.message.text or "")
+    if guests is None:
+        await update.message.reply_text("❌ Укажите целое число гостей от 1 до 20.")
         return CHOOSING_GUESTS
+    context.user_data['guests'] = str(guests)
 
     await update.message.reply_text("👤 Ваше ФИО полностью?")
     return ASKING_NAME
 
 
 async def get_name(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    context.user_data['name'] = update.message.text.strip()
+    name = validate_name(update.message.text or "")
+    if name is None:
+        await update.message.reply_text(
+            "❌ Введите имя и фамилию буквами (от 2 до 100 символов, без цифр)."
+        )
+        return ASKING_NAME
+    context.user_data['name'] = name
     await update.message.reply_text("📱 Укажите ваш номер телефона:")
     return ASKING_PHONE
 
 
 async def get_phone(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    context.user_data['phone'] = update.message.text.strip()
+    phone = normalize_phone(update.message.text or "")
+    if phone is None:
+        await update.message.reply_text(
+            "❌ Проверьте номер телефона. Например: +7 924 123-45-67."
+        )
+        return ASKING_PHONE
+    context.user_data['phone'] = phone
 
     data = context.user_data
     apt = APARTMENTS.get(data['apt_key'])
